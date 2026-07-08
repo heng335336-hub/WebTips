@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Card Catalog</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="bg-blob blob-a" aria-hidden="true"></div>
+<div class="bg-blob blob-b" aria-hidden="true"></div>
+
+<nav class="site-nav" aria-label="Primary">
+  <a href="index.html" class="nav-brand">
+    <span class="brand-mark" aria-hidden="true">&#9670;</span> Card Catalog
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="contact.html" class="nav-link active">Contact</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <h1>Get in touch</h1>
+  <p>Questions, feedback, or found a broken shortcut? Reach out below.</p>
+</section>
+
+<section class="page-content">
+
+  <article class="content-card">
+    <h2>Direct contact</h2>
+    <!-- Replace with your real details -->
+    <ul class="contact-list">
+      <li><span class="contact-icon">@</span> <a href="mailto:you@example.com">heng335336@gmail.com</a></li>
+      <li><span class="contact-icon">&#9742;</span> None :)</li>
+      <li><span class="contact-icon">&#128205;</span> Nowhere</li>
+    </ul>
+  </article>
+
+  <article class="content-card">
+    <h2>Send a message</h2>
+    <p class="form-note">
+      Paro Heng didn't prepare back-end, so don't send any message, this message place just for good looking :)
+    </p>
+
+    <form class="contact-form" action="mailto:you@example.com" method="post" enctype="text/plain">
+      <label class="field-label" for="contactName">Name</label>
+      <input type="text" id="contactName" name="Name" class="text-input" required>
+
+      <label class="field-label" for="contactEmail">Your email</label>
+      <input type="email" id="contactEmail" name="Email" class="text-input" required>
+
+      <label class="field-label" for="contactMessage">Message</label>
+      <textarea id="contactMessage" name="Message" class="text-input" rows="5" required></textarea>
+
+      <button type="submit" class="btn btn-primary btn-block">Send message</button>
+    </form>
+  </article>
+
+</section>
+
+<footer class="site-footer">
+  <p>Filed &amp; kept for future-you. Everything here lives in your browser's local storage — no server, no database.</p>
+</footer>
+
+</body>
+</html>
