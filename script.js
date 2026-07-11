@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const EDIT_PASSCODE = "HengLim";
 
   const STORAGE_KEY = "cardCatalogGuides_v1";
-  const EDIT_SESSION_KEY = "cardCatalogEditUnlocked";
 
   const DEFAULT_GUIDES = [
     {
@@ -15,75 +13,21 @@ document.addEventListener("DOMContentLoaded", () => {
       steps: ["Press Win + R", "Type a command, e.g. notepad or %temp%", "Press Enter"],
       note: "Tip: \\\\server\\share also works here for jumping to a network path."
     },
-    {
-      id: 2,
-      title: "Lock Your Screen Instantly",
-      category: "shortcuts",
-      tags: "windows, lock, screen, keyboard, security",
-      summary: "Step away from your desk without leaving your session exposed.",
-      steps: ["Press Win + L", "Your screen locks immediately, apps keep running in the background"],
-      note: "Works even mid-download or mid-render — nothing gets interrupted."
-    },
-    {
-      id: 3,
-      title: "How to Build Something (Starter Flow)",
-      category: "build",
-      tags: "project, setup, scaffolding, workflow",
-      summary: "A generic scaffold for kicking off any new build — swap in your own steps as the project takes shape.",
-      steps: [
-        "Define the goal in one sentence — what does \"done\" look like?",
-        "List the smallest working version you could ship today",
-        "Set up the folder / repo and install core dependencies",
-        "Build the smallest version end-to-end before polishing anything",
-        "Test it, note what broke, repeat"
-      ],
-      note: "Duplicate this card and replace the steps with your actual build log."
-    },
-    {
-      id: 4,
-      title: "Reopen a Closed Tab",
-      category: "tips",
-      tags: "browser, tabs, productivity",
-      summary: "Closed the wrong tab? Bring it right back without digging through history.",
-      steps: ["Press Ctrl + Shift + T", "Repeat to keep restoring further back, one tab at a time"],
-      note: ""
-    },
-    {
-      id: 5,
-      title: "Undo the Last Git Commit (Keep Changes)",
-      category: "tools",
-      tags: "git, undo, mistake, commit",
-      summary: "Made a commit too early? Undo it but keep every file change staged.",
-      steps: [
-        "Open your terminal in the repo folder",
-        "Run git reset --soft HEAD~1",
-        "Your changes are back in the staging area, ready to re-commit"
-      ],
-      note: "Use --mixed instead of --soft if you also want files unstaged."
-    }
+    
   ];
 
-  /* ---------- State ---------- */
+  /* State */
   let guides = loadGuides();
-  let isEditMode = sessionStorage.getItem(EDIT_SESSION_KEY) === "true";
   let activeFilter = "all";
   let activeQuery = "";
 
-  /* ---------- DOM refs ---------- */
+  /*  DOM refs */
   const cardGrid = document.getElementById("cardGrid");
   const emptyState = document.getElementById("emptyState");
   const searchInput = document.getElementById("searchInput");
   const filterButtons = document.getElementById("filterButtons");
 
-  const unlockBtn = document.getElementById("unlockBtn");
-  const lockBtn = document.getElementById("lockBtn");
   const addBtn = document.getElementById("addBtn");
-
-  const passcodeOverlay = document.getElementById("passcodeOverlay");
-  const passcodeForm = document.getElementById("passcodeForm");
-  const passcodeInput = document.getElementById("passcodeInput");
-  const passcodeError = document.getElementById("passcodeError");
-  const closePasscodeBtn = document.getElementById("closePasscodeBtn");
 
   const editorOverlay = document.getElementById("editorOverlay");
   const editorForm = document.getElementById("editorForm");
@@ -234,44 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCards();
   });
 
-  /* ---------- Edit mode toggling ---------- */
-  function applyEditModeUI() {
-    document.body.classList.toggle("edit-mode", isEditMode);
-    unlockBtn.hidden = isEditMode;
-    lockBtn.hidden = !isEditMode;
-    addBtn.hidden = !isEditMode;
-  }
-  applyEditModeUI();
-
-  unlockBtn.addEventListener("click", () => {
-    passcodeError.hidden = true;
-    passcodeInput.value = "";
-    passcodeOverlay.hidden = false;
-    passcodeInput.focus();
-  });
-
-  closePasscodeBtn.addEventListener("click", () => { passcodeOverlay.hidden = true; });
-  passcodeOverlay.addEventListener("click", (e) => { if (e.target === passcodeOverlay) passcodeOverlay.hidden = true; });
-
-  passcodeForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (passcodeInput.value === EDIT_PASSCODE) {
-      isEditMode = true;
-      sessionStorage.setItem(EDIT_SESSION_KEY, "true");
-      applyEditModeUI();
-      passcodeOverlay.hidden = true;
-      showToast("Editing unlocked");
-    } else {
-      passcodeError.hidden = false;
-    }
-  });
-
-  lockBtn.addEventListener("click", () => {
-    isEditMode = false;
-    sessionStorage.removeItem(EDIT_SESSION_KEY);
-    applyEditModeUI();
-    showToast("Editing locked");
-  });
+  /* ---------- Edit mode: always on, open to every visitor ---------- */
+  document.body.classList.add("edit-mode");
 
   /* ---------- Steps editor (dynamic rows) ---------- */
   function addStepRow(value = "") {
@@ -286,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   addStepBtn.addEventListener("click", () => addStepRow());
 
-  /* ---------- Add / Edit modal ---------- */
+  /* Add / Edit modal  */
   function openEditor(id = null) {
     editorForm.reset();
     stepsEditor.innerHTML = "";
@@ -365,14 +273,13 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("Entry deleted");
   }
 
-  /* ---------- Escape key closes any open modal ---------- */
+  /* Escape key closes the editor modal */
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
-    if (!passcodeOverlay.hidden) passcodeOverlay.hidden = true;
     if (!editorOverlay.hidden) closeEditor();
   });
 
-  /* ---------- Initial render ---------- */
+  /*Initial render*/
   renderFilters();
   renderCards();
 });
