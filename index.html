@@ -37,9 +37,7 @@
   </div>
 
   <div class="header-actions">
-    <button class="btn btn-ghost" id="lockBtn" type="button" hidden>Lock editing</button>
-    <button class="btn btn-primary" id="addBtn" type="button" hidden>+ New entry</button>
-    <button class="btn btn-outline" id="unlockBtn" type="button">Owner feature</button>
+    <button class="btn btn-primary" id="addBtn" type="button">+ New entry</button>
   </div>
 </header>
 
@@ -63,23 +61,7 @@
 
 <p class="empty-state" id="emptyState" hidden>No entries match your search. Try a different keyword or filter.</p>
 
-<!-- ===================== PASSCODE MODAL ===================== -->
-<div class="modal-overlay" id="passcodeOverlay" hidden>
-  <div class="modal-panel modal-small" role="dialog" aria-modal="true" aria-labelledby="passcodeTitle">
-    <div class="modal-head">
-      <h2 id="passcodeTitle">Owner feature</h2>
-      <button class="close-btn" id="closePasscodeBtn" type="button" aria-label="Close">&times;</button>
-    </div>
-    <p class="modal-help">Hi from HengLim :) </p>
-    <form id="passcodeForm">
-      <input type="password" id="passcodeInput" class="text-input" placeholder="Don't mess around here I didn't set up this button role" autocomplete="off">
-      <p class="field-error" id="passcodeError" hidden>I said don't mess around here, now get out.</p>
-      <button type="submit" class="btn btn-primary btn-block">Go</button>
-    </form>
-  </div>
-</div>
-
-<!-- ===================== ADD / EDIT MODAL ===================== -->
+<!-- ADD / EDIT MODAL-->
 <div class="modal-overlay" id="editorOverlay" hidden>
   <div class="modal-panel modal-large" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
     <div class="modal-head">
