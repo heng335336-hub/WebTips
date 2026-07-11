@@ -13,15 +13,60 @@ document.addEventListener("DOMContentLoaded", () => {
       steps: ["Press Win + R", "Type a command, e.g. notepad or %temp%", "Press Enter"],
       note: "Tip: \\\\server\\share also works here for jumping to a network path."
     },
-    
+    {
+      id: 2,
+      title: "Lock Your Screen Instantly",
+      category: "shortcuts",
+      tags: "windows, lock, screen, keyboard, security",
+      summary: "Step away from your desk without leaving your session exposed.",
+      steps: ["Press Win + L", "Your screen locks immediately, apps keep running in the background"],
+      note: "Works even mid-download or mid-render — nothing gets interrupted."
+    },
+    {
+      id: 3,
+      title: "How to Build Something (Starter Flow)",
+      category: "build",
+      tags: "project, setup, scaffolding, workflow",
+      summary: "A generic scaffold for kicking off any new build — swap in your own steps as the project takes shape.",
+      steps: [
+        "Define the goal in one sentence — what does \"done\" look like?",
+        "List the smallest working version you could ship today",
+        "Set up the folder / repo and install core dependencies",
+        "Build the smallest version end-to-end before polishing anything",
+        "Test it, note what broke, repeat"
+      ],
+      note: "Duplicate this card and replace the steps with your actual build log."
+    },
+    {
+      id: 4,
+      title: "Reopen a Closed Tab",
+      category: "tips",
+      tags: "browser, tabs, productivity",
+      summary: "Closed the wrong tab? Bring it right back without digging through history.",
+      steps: ["Press Ctrl + Shift + T", "Repeat to keep restoring further back, one tab at a time"],
+      note: ""
+    },
+    {
+      id: 5,
+      title: "Undo the Last Git Commit (Keep Changes)",
+      category: "tools",
+      tags: "git, undo, mistake, commit",
+      summary: "Made a commit too early? Undo it but keep every file change staged.",
+      steps: [
+        "Open your terminal in the repo folder",
+        "Run git reset --soft HEAD~1",
+        "Your changes are back in the staging area, ready to re-commit"
+      ],
+      note: "Use --mixed instead of --soft if you also want files unstaged."
+    }
   ];
 
-  /* State */
+  /* ---------- State ---------- */
   let guides = loadGuides();
   let activeFilter = "all";
   let activeQuery = "";
 
-  /*  DOM refs */
+  /* ---------- DOM refs ---------- */
   const cardGrid = document.getElementById("cardGrid");
   const emptyState = document.getElementById("emptyState");
   const searchInput = document.getElementById("searchInput");
@@ -79,9 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }[c]));
   }
 
-  /* Renders inline <kbd> for things like "Win + R" and <code> for
-     inline `backticks`-free tokens is intentionally kept simple:
-     we just escape everything for safety and let plain text show. */
+
   function formatStepText(text) {
     return esc(text);
   }
@@ -194,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   addStepBtn.addEventListener("click", () => addStepRow());
 
-  /* Add / Edit modal  */
+  /* ---------- Add / Edit modal ---------- */
   function openEditor(id = null) {
     editorForm.reset();
     stepsEditor.innerHTML = "";
@@ -273,13 +316,13 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("Entry deleted");
   }
 
-  /* Escape key closes the editor modal */
+  /* ---------- Escape key closes the editor modal ---------- */
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     if (!editorOverlay.hidden) closeEditor();
   });
 
-  /*Initial render*/
+  /* ---------- Initial render ---------- */
   renderFilters();
   renderCards();
 });
